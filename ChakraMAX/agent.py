@@ -14,15 +14,7 @@ paramiko\py3compat.py 파일 수정
                 return s.decode('ISO-8859-1')  
 """
 
-DB_SERVER = '111.222.333.444'
-DB_ACCOUNT = 'dbaccount'
-DB_PASSWD = 'dbpassword'
-MSG1 = 'tail -100 /var/log/messages | grep ChakraMax > /home/dbaccount/chakra_log'
-MSG2 = 'tail -1 /home/dbaccount/chakra_log'
-UDP_IP_ADDRESS = "11.22.33.44"
-UDP_PORT_NO = 5144
-
-if __name__ == "__main__":
+def main():
     try:
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -92,3 +84,16 @@ if __name__ == "__main__":
         clientSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         clientSock.sendto(message.encode(), (UDP_IP_ADDRESS, UDP_PORT_NO))
         print("[!] ChakraMAX Agent Error!!" + str(e))
+
+
+if __name__ == "__main__":
+    # 접속 정보
+    DB_SERVER = '111.222.333.444'
+    DB_ACCOUNT = 'dbaccount'
+    DB_PASSWD = 'dbpassword'
+    MSG1 = 'tail -100 /var/log/messages | grep ChakraMax > /home/dbaccount/chakra_log'
+    MSG2 = 'tail -1 /home/dbaccount/chakra_log'
+    UDP_IP_ADDRESS = "11.22.33.44"
+    UDP_PORT_NO = 5144
+
+    main()
