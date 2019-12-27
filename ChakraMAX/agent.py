@@ -30,6 +30,7 @@ def main():
         old_message_md5 = chakra_hash_file.read()
         list = message.split(' ; ')  # 전체를 ; 로 스플릿
         pointer_list = list[0].split('[ChakraMax Alert]')  # 첫번째 쪼개기
+
         if "Clinet" in pointer_list[1]:
             pointer_list[1] = "Client Table Row 경고"
         elif "OTP" in pointer_list[1]:
@@ -50,9 +51,11 @@ def main():
         # 나머지 문자열 치환
         # list[0] = pointer_list[0]+pointer_list[1]
         # list[0] = list[0].replace("dbsec cgw_sf:","")
+
         list[0] = pointer_list[1]
         list[1] = "회원데이터베이스"
         list[2] = "회원데이터베이스디비"
+
         if "Row" in list[3]:
             list[3] = "customer 계정 1000 Row 이상"
         if "#" in list[16]:
@@ -70,6 +73,7 @@ def main():
         if message_md5 == old_message_md5:
             print("[=] 값 같음")
             chakra_hash_file.close()
+
         else:
             chakra_hash_file = open('/home/gabiaspol/chakra_hash', 'w')
             chakra_hash_file.write(message_check.hexdigest())
@@ -77,6 +81,7 @@ def main():
             clientSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             clientSock.sendto(message.encode(), (UDP_IP_ADDRESS, UDP_PORT_NO))
             print("[+] Log message : " + message)
+
         ssh.close()
 
     except Exception as e:
